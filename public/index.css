@@ -30,3 +30,7 @@
     align-items: center;
     justify-content: space-between;
 }
+
+.login__box {
+    margin-top: 50px;
+}
