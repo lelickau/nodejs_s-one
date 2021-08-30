@@ -43,3 +43,9 @@
     font-weight: 700;
     background-color: rgba(255, 154, 154, .5);
 }
+
+.reset__password {
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 18px;
+}

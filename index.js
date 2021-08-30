@@ -14,8 +14,8 @@ const addRoutes = require('./routes/add');
 const authRoutes = require('./routes/auth');
 const varMiddleware = require('./middleware/variables');
 const userMiddleware = require('./middleware/user');
+const keys = require('./keys');
 
-const MONGODB_URL = 'mongodb+srv://lelickau:XbNZYGi9rNEShmtk@clustercourses.cle9b.mongodb.net/shop';
 const app = express();
 
 const hbs = exphbs.create({
@@ -25,7 +25,7 @@ const hbs = exphbs.create({
 
 const store = new MongoStore({
   collection: 'session',
-  uri: MONGODB_URL,
+  uri: keys.MONGODB_URL,
 });
 
 app.engine('hbs', hbs.engine);
@@ -36,7 +36,7 @@ app.set('views', 'views');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({extended: true}));
 app.use(session({
-  secret: 'some secret value',
+  secret: keys.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
   store
@@ -58,22 +58,10 @@ const PORT = process.env.PORT || 3050;
 
 async function start() {
     try {
-      const url = 'mongodb+srv://lelickau:XbNZYGi9rNEShmtk@clustercourses.cle9b.mongodb.net/shop'
-      await mongoose.connect(url, {
+      await mongoose.connect(keys.MONGODB_URL, {
         useNewUrlParser: true,
         useFindAndModify: false
       });
-      /* const candidate = await User.findOne();
-      if(!candidate) {
-        const user = new User({
-          email: 'lelickau@yandex.ru',
-          name: 'Elena',
-          cart: {
-            items: []
-          },
-        });
-        await user.save();
-      } */
 
       app.listen(PORT, () => {
         console.log(`Server is running on port ${PORT}`)
