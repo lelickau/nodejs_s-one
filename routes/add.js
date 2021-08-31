@@ -4,10 +4,15 @@ const auth = require('../middleware/auth');
 const router = Router();
 
 router.get('/', auth, (req, res) => {
-    res.render('add', {
-        title: 'Добавить курс',
-        isAdd: true,
-    })
+    try {
+        res.render('add', {
+            title: 'Добавить курс',
+            isAdd: true,
+        })
+    } catch (err) {
+        console.log(err);
+    }
+
 })
 
 router.post('/', auth, async (req, res) => {
